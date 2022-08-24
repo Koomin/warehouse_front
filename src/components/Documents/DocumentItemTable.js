@@ -12,6 +12,8 @@ export function DocumentItemTable ({documentItems}) {
             <TableRow >
                 <TableCell sx={{fontWeight: "bold"}}>Produkt</TableCell>
                 <TableCell sx={{fontWeight: "bold"}} align="right">Ilość</TableCell>
+                <TableCell sx={{fontWeight: "bold"}} align="right">J.M.</TableCell>
+                <TableCell sx={{fontWeight: "bold"}} align="right">Cena jednostkowa</TableCell>
                 <TableCell sx={{fontWeight: "bold"}} align="right">Netto</TableCell>
                 <TableCell sx={{fontWeight: "bold"}} align="right">Brutto</TableCell>
             </TableRow>
@@ -26,6 +28,8 @@ export function DocumentItemTable ({documentItems}) {
                     {row.product}
                 </TableCell>
                 <TableCell align="right">{row.quantity}</TableCell>
+                <TableCell align="right">{row.product_unit}</TableCell>
+                <TableCell align="right">{row.product_value}</TableCell>
                 <TableCell align="right">{row.net_price}</TableCell>
                 <TableCell align="right">{row.gross_price}</TableCell>
                 </TableRow>

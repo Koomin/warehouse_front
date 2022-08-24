@@ -45,7 +45,7 @@ export function DocumentsTable({
                     {title: "Magazyn docelowy", field: "destination_store"},
                     {title: "Grupa dokumentu", field: "document_group"},
                     {title: "Typ dokumentu", field: "document_type"},
-                    {title: "Wyeksportowane", field: "exported"},
+                    {title: "Wyeksportowane", field: "exported", type: "boolean", lookup: {true: true, false: false}},
                 ]}
                 options={{
                     pageSize: 10,
