@@ -1,30 +1,28 @@
 import React, { useEffect, useState } from 'react';
 import { withRouter } from 'react-router-dom';
 import NavigationWithDrawer from './NavigationWithDrawer';
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { BrowserRouter as Route, Switch } from "react-router-dom";
 import Home from '../Home/Home';
 import Products from '../Products/Products';
 import Documents from '../Documents/Documents';
-import { useHistory } from 'react-router-dom';
-import { getFirstName, getLastName, logout } from '../../services/authenticationService';
-
+import { getModelPermissions,getFirstName, getLastName, logout } from '../../services/authenticationService';
+import { RoutePerms } from './RoutePerms';
 
 export const Routes = () => (
 	<Switch>
 		<Route exact path='/dashboard'>
             <Home />
         </Route>
-        <Route exact path='/documents'>
-            <Documents />
-        </Route>
-        <Route exact path='/products'>
+		<RoutePerms exact path='/documents'>
+			<Documents /> 
+		</RoutePerms> 
+        <RoutePerms exact path='/products'>
             <Products />
-        </Route>
+        </RoutePerms>
 	</Switch>
 );
 
 function Navigation(props) {
-	const { pathname } = props.location;
 	const [ currentUser, setCurrentUser ] = useState({});
 
 	const fetchCurrentUser = async () => {

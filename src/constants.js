@@ -3,13 +3,14 @@ const PREFIXES = {
     LOCAL: "http://127.0.0.1:8000",
   };
   
-  const PREFIX = PREFIXES.LOCAL;
+  const PREFIX = PREFIXES.LOCAL + '/api';
   
 
 export const API = {
-    AUTH: `${PREFIX}/api/token/`,
-    REFRESH: `${PREFIX}/api/token/refresh/`,
-    PRODUCTS: `${PREFIX}/api/products/`,
-    DOCUMENTS: `${PREFIX}/api/documents/`,
-    DOCUMENT_ITEM: `${PREFIX}/api/document-item/`,
+    AUTH: `${PREFIX}/token/`,
+    REFRESH: `${PREFIX}/token/refresh/`,
+    PRODUCTS: `${PREFIX}/products/`,
+    DOCUMENTS: `${PREFIX}/documents/`,
+    DOCUMENT_ITEM: `${PREFIX}/document-item/`,
+    DOCUMENT_TYPES: `${PREFIX}/document-types/`,
 }

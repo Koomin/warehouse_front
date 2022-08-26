@@ -1,17 +1,14 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import AppBar from '@material-ui/core/AppBar';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Divider from '@material-ui/core/Divider';
 import Drawer from '@material-ui/core/Drawer';
 import Hidden from '@material-ui/core/Hidden';
 import IconButton from '@material-ui/core/IconButton';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import MailIcon from '@material-ui/icons/Mail';
 import MenuIcon from '@material-ui/icons/Menu';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
@@ -21,22 +18,11 @@ import { logout } from '../../services/authenticationService';
 import Clock from 'react-live-clock';
 import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew';
 import { Routes } from './Navigation';
-import TableChartIcon from '@material-ui/icons/TableChart';
-import MeetingRoomIcon from '@material-ui/icons/MeetingRoom';
-import PostAddIcon from '@material-ui/icons/PostAdd';
-import HomeWorkIcon from '@material-ui/icons/HomeWork';
-import AssignmentIndIcon from '@material-ui/icons/AssignmentInd';
-import WatchLaterIcon from '@material-ui/icons/WatchLater';
-import EventIcon from '@material-ui/icons/Event';
-import ContactsIcon from '@material-ui/icons/Contacts';
-import AssessmentIcon from '@material-ui/icons/Assessment';
 import Logo from '../../static/images/logo2016.png';
-import AttachFileIcon from '@material-ui/icons/AttachFile';
-import MonetizationOnIcon from '@material-ui/icons/MonetizationOn';
-import FaceIcon from '@material-ui/icons/Face';
 import * as FaIcons from "react-icons/fa";
 import * as AiIcons from "react-icons/ai";
 import * as IoIcons from "react-icons/io";
+import {getModelPermissions} from '../../services/authenticationService';
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -84,11 +70,10 @@ const useStyles = makeStyles((theme) => ({
 	},
 	navIcon: {
 		color: 'white',
-		height: '80px', 
+		height: '80px',
+		borderRadius: '5px', 
 		transition: 'padding 0.5s',
-		'&:not(:last-child)': {
-			borderBottom: '1px solid rgba(0, 0, 0, 0.12)'
-		},
+		marginBottom: '2px',
 		'&:hover': {
 			paddingLeft: 30,
 			background: 'white',
@@ -116,6 +101,24 @@ export default function NavIgationWithDrawer(props) {
 	const [ mobileOpen, setMobileOpen ] = React.useState(false);
 	const history = useHistory();
 	const currentPath = history.location.pathname;
+    const perms = getModelPermissions();
+	const permsMapping ={
+		'Dashboard': {
+			label: 'Dashboard',
+			link: '/dashboard',
+			icon: <AiIcons.AiFillHome />
+		},
+		'Products': {
+			label: 'Produkty',
+			link: '/products',
+			icon: <FaIcons.FaCartPlus />
+		},
+		'Documents': {
+			label: 'Dokumenty',
+			link: '/documents',
+			icon: <IoIcons.IoIosDocument />
+		},	
+	}
 
 	const goTo = (link) => {
 		history.push(link);
@@ -130,6 +133,16 @@ export default function NavIgationWithDrawer(props) {
 		setMobileOpen(!mobileOpen);
 	};
 
+	const prepareMenuList = () => {
+		let menuList = []
+		for (const [key, value] of Object.entries(permsMapping)) {
+			if (perms.includes(key)) {
+				menuList.push(value);
+			}
+		}
+		return menuList;
+	}
+
 	const drawer = (
 		<div>
 			<div className={classes.toolbar}>
@@ -139,24 +152,7 @@ export default function NavIgationWithDrawer(props) {
 			</div>
 			<Divider />
 			<List>
-				{[
-					{
-						label: 'Dashboard',
-						link: '/dashboard',
-						icon: <AiIcons.AiFillHome />
-					},
-                    {
-						label: 'Produkty',
-						link: '/products',
-						icon: <FaIcons.FaCartPlus />
-					},
-                    {
-						label: 'Dokumenty',
-						link: '/documents',
-						icon: <IoIcons.IoIosDocument />
-					},
-					
-				].map((item) => {
+				{prepareMenuList().map((item) => {
 					const isActive = item.link === currentPath;
 					return (
 						<ListItem
