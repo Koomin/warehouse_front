@@ -2,6 +2,8 @@ import { Item } from "./Documents";
 import React from "react";
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
+import { ThemeProvider } from "@emotion/react";
+import { theme } from "../../theme";
 
 export function DocumentButtons({handleButtonClick, documentTypes}) {
 
@@ -11,6 +13,7 @@ export function DocumentButtons({handleButtonClick, documentTypes}) {
         'MM' : 'Przesuniecia MM'
     }
     return (
+        <ThemeProvider theme={theme}>
         <Item elevation={0}>
         <Grid container spacing={2}>
             <Grid item xs={1}>
@@ -23,5 +26,6 @@ export function DocumentButtons({handleButtonClick, documentTypes}) {
             ))}
         </Grid>
         </Item>
+        </ThemeProvider>
     );
 };
