@@ -14,13 +14,15 @@ import {
 import { Divider } from "@mui/material";
 import Box from '@mui/material/Box';
 import { DocumentItemTable } from "./DocumentItemTable";
-
+import Autocomplete from '@mui/material/Autocomplete';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
   });
 
-export const DocumentDialog = ({ open, handleClose, documentsData, documentItems }) => {
+export const DocumentDialog = ({ open, handleClose, documentsData, documentItems, isOpenProductionDialog, handleProductionClick, handleSaveButton, incrementQuantity, decrementQuantity, stores}) => {
+    const [selectedStore, setSelectedStore] = useState();
+
     return (
 		<Dialog
             fullScreen
@@ -43,9 +45,20 @@ export const DocumentDialog = ({ open, handleClose, documentsData, documentItems
             <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
                 {documentsData.exported ? 'Dokument ' + documentsData.optima_full_number : 'Dokument niewysłany'}
             </Typography>
-            {/* <Button autoFocus color="inherit" onClick={handleClose}>
-              save
-            </Button> */}
+
+            {!isOpenProductionDialog ? (
+                <Button autoFocus color="inherit" onClick={handleProductionClick}>
+                    Produkcja
+                </Button>) : ""
+            }
+            {isOpenProductionDialog ? (
+                <Button autoFocus color="inherit" onClick={handleSaveButton}>
+                    Zapisz produkcje
+                </Button>) : ""
+            }
+            {/* <Button autoFocus color="inherit" onClick={handleProductionClick}>
+              Produkcja
+            </Button>  */}
           </Toolbar>
         </AppBar>
         <Box sx={{padding: '40px'}}>
@@ -58,25 +71,36 @@ export const DocumentDialog = ({ open, handleClose, documentsData, documentItems
                         <TextField id="outlined-basic" label="Typ dokumentu" variant="outlined" fullWidth disabled value={documentsData.document_type}/>
                     </Grid>
                     <Grid item xs={4}>
-                        <TextField id="outlined-basic" label="Grupa" variant="outlined" fullWidth disabled value={documentsData.document_group}/>
+                        <TextField id="outlined-basic" label="Grupa" variant="outlined" fullWidth value={documentsData.document_group}/>
                     </Grid>
                     <Grid item xs={6}>
                         <TextField id="outlined-basic" label="Magazyn źródłówy" variant="outlined" fullWidth value={documentsData.source_store}/>
                     </Grid>
                     <Grid item xs={6}>
-                        <TextField id="outlined-basic" label="Magazyn docelowy" variant="outlined" fullWidth value={documentsData.destination_store}/>
+                    {!isOpenProductionDialog ? <TextField id="outlined-basic" label="Magazyn docelowy" variant="outlined" fullWidth value={documentsData.destination_store}/> : 
+                        <Autocomplete 
+                            value={selectedStore}
+                            onChange={(event, newValue) => {
+                                console.log(newValue);
+                                setSelectedStore(newValue)
+                            }}
+                            options={stores.map((row) => ({id: row.id, label: row.short_name}))}
+                            id="controllable-states-demo"
+                            renderInput={(params) => <TextField {...params} variant="outlined" label="Magazyn docelowy" />}
+                            />
+                    }
                     </Grid>
-                    <Grid item xs={6}>
+                    {!isOpenProductionDialog ? (<Grid item xs={6}>
                         <TextField id="outlined-basic" label="Wartość netto" variant="outlined" fullWidth value={documentsData.value_net}/>
-                    </Grid>
-                    <Grid item xs={6}>
+                    </Grid>) : ''}
+                    {!isOpenProductionDialog ? (<Grid item xs={6}>
                         <TextField id="outlined-basic" label="Wartość brutto" variant="outlined" fullWidth value={documentsData.value_gross}/>
-                    </Grid>
+                    </Grid>) : ''}
                 </Grid>
             </Box>
             <Divider color="grey" fullWidth />
             <Box sx={{paddingTop:"20px"}}>
-                <DocumentItemTable documentItems={documentItems} />
+                <DocumentItemTable documentItems={documentItems} isOpenProductionDialog={isOpenProductionDialog} incrementQuantity={incrementQuantity} decrementQuantity={decrementQuantity} />
             </Box>
         </Box>
 		</Dialog>

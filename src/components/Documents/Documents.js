@@ -7,6 +7,7 @@ import { styled } from '@mui/material/styles';
 import { DocumentDialog } from "./DocumentDialog";
 import { DocumentButtons } from "./DocumentsButtons";
 import { getDocumentTypes } from "../../services/documentsService";
+import { getStores } from "../../services/storesService";
 
 export const Item = styled(Paper)(({ theme }) => ({
     backgroundImage: null,
@@ -21,12 +22,58 @@ function Documents() {
     const [documentsData, setDocumentsData] = useState([]);
     const [documentItems, setDocumentItems] = useState([]);
     const [documentTypes, setDocumentTypes] = useState([]);
+    const [documentItemsTable, setDocumentItemsTable] = useState([]);
     const [tableTitle, setTableTitle] = useState('Dokumenty');
+    const [isOpenProductionDialog, setOpenProductionDialog] = useState(false);
+    const [stores, setStores] = useState();
+
+    const fetchStores = async () => {
+        const response = await getStores();
+        setStores(response.data);
+    };
+
+    function incrementQuantity(id, unit) {
+        let item = documentItemsTable[id];
+        if(unit === 'kg'){
+            item['quantity'] = String((parseFloat(item['quantity']) * 10  + 1)/10);
+        }
+        else {
+            item['quantity'] = String(parseFloat(item['quantity']) + 1);
+        }
+        documentItemsTable[id] = item;
+        setDocumentItems([]);
+        let newItems = Object.keys(documentItemsTable).map((key, value) => documentItemsTable[key]);
+        setDocumentItems(newItems);
+    };
+
+    function decrementQuantity(id, unit) {
+        let item = documentItemsTable[id];
+        if(unit === 'kg'){
+            item['quantity'] = String((parseFloat(item['quantity']) * 10  - 1)/10);
+        }
+        else {
+            item['quantity'] = String(parseFloat(item['quantity']) - 1);
+        }
+        documentItemsTable[id] = item;
+        setDocumentItems([]);
+        let newItems = Object.keys(documentItemsTable).map((key, value) => documentItemsTable[key]);
+        setDocumentItems(newItems);
+    };
+
+    const handleSaveButton = async () => {
+        console.log('Zapisano')
+    };
+
+    const handleProductionClick = async () => {
+        await fetchStores();
+        setOpenProductionDialog(true);
+    };
 
     const fetchDocumentItems = async (id) => {
         const response = await getDocumentItems(id);
         const documentItems = response.data;
         setDocumentItems(documentItems);
+        documentItems.forEach((row) => {setDocumentItemsTable(state => ({ ...state, [row.id]: row}))});
     };
 
     const fetchDocuments = async (type=null) => {
@@ -57,6 +104,8 @@ function Documents() {
         setOpenDocumentDialog(false);
         setDocumentsData([]);
         setDocumentItems([]);
+        setDocumentItemsTable([]);
+        setOpenProductionDialog(false);
         if (shouldFetch) {
           fetchDocuments();
         }
@@ -95,6 +144,12 @@ function Documents() {
             documentsData={documentsData}
             documentItems={documentItems}
             open={isOpenDocumentDialog}
+            handleProductionClick={handleProductionClick}
+            isOpenProductionDialog={isOpenProductionDialog}
+            handleSaveButton={handleSaveButton}
+            incrementQuantity={incrementQuantity}
+            decrementQuantity={decrementQuantity}
+            stores={stores}
         />
     </div>
     );

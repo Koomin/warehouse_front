@@ -7,6 +7,8 @@ import AccountCircle from "@material-ui/icons/AccountCircle";
 import LockIcon from "@material-ui/icons/Lock";
 import { makeStyles } from "@material-ui/core/styles";
 import Logo from "../../static/images/logo2016.png";
+import { ThemeProvider } from "@emotion/react";
+import { theme } from "../../theme";
 
 const useStyles = makeStyles(theme => ({
   loginBackground: {
@@ -71,6 +73,7 @@ function Login() {
   };
 
   return (
+    
     <Grid
       container
       direction="column"
@@ -96,6 +99,7 @@ function Login() {
               </Grid>
               <Grid item>
                 <TextField
+                color='primary'
                   onChange={handleChange}
                   value={form.login}
                   label="Login"
@@ -144,6 +148,7 @@ function Login() {
         </form>
       </Grid>
     </Grid>
+    
   );
 }
 
