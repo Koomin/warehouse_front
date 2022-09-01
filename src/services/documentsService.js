@@ -20,3 +20,13 @@ export const getDocumentsByType =  async (id) => {
     const response = axios.get(`${API.DOCUMENTS}${id}/type/`);
     return response
 }
+
+export const uploadDocument = async (details) => {
+    const response = axios.post(`${API.DOCUMENTS}`, details);
+    return response
+}
+
+export const uploadDocumentItems = async (details) => {
+    const response = axios.post(`${API.DOCUMENT_ITEM}`, details);
+    return response
+}

@@ -20,8 +20,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
   });
 
-export const DocumentDialog = ({ open, handleClose, documentsData, documentItems, isOpenProductionDialog, handleProductionClick, handleSaveButton, incrementQuantity, decrementQuantity, stores}) => {
-    const [selectedStore, setSelectedStore] = useState();
+export const DocumentDialog = ({ open, handleClose, documentsData, documentItems, isOpenProductionDialog, handleProductionClick, handleSaveButton, incrementQuantity, decrementQuantity, stores, selectedStore, setSelectedStore}) => {
 
     return (
 		<Dialog
@@ -68,16 +67,16 @@ export const DocumentDialog = ({ open, handleClose, documentsData, documentItems
                         <TextField id="outlined-basic" label="Numer Optima" variant="outlined" fullWidth disabled value={documentsData.optima_full_number}/>
                     </Grid>
                     <Grid item xs={4}>
-                        <TextField id="outlined-basic" label="Typ dokumentu" variant="outlined" fullWidth disabled value={documentsData.document_type}/>
+                        <TextField id="outlined-basic" label="Typ dokumentu" variant="outlined" fullWidth disabled value={documentsData.document_type_name}/>
                     </Grid>
                     <Grid item xs={4}>
-                        <TextField id="outlined-basic" label="Grupa" variant="outlined" fullWidth value={documentsData.document_group}/>
+                        <TextField id="outlined-basic" label="Grupa" variant="outlined" fullWidth value={documentsData.document_group_name}/>
                     </Grid>
                     <Grid item xs={6}>
-                        <TextField id="outlined-basic" label="Magazyn źródłówy" variant="outlined" fullWidth value={documentsData.source_store}/>
+                        <TextField id="outlined-basic" label="Magazyn źródłówy" variant="outlined" fullWidth value={documentsData.source_store_name}/>
                     </Grid>
                     <Grid item xs={6}>
-                    {!isOpenProductionDialog ? <TextField id="outlined-basic" label="Magazyn docelowy" variant="outlined" fullWidth value={documentsData.destination_store}/> : 
+                    {!isOpenProductionDialog ? <TextField id="outlined-basic" label="Magazyn docelowy" variant="outlined" fullWidth value={documentsData.destination_store_name}/> : 
                         <Autocomplete 
                             value={selectedStore}
                             onChange={(event, newValue) => {

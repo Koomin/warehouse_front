@@ -26,7 +26,7 @@ export function DocumentItemTable ({documentItems, isOpenProductionDialog, incre
                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                 >
                 <TableCell component="th" scope="row">
-                    {row.product}
+                    {row.product_name}
                 </TableCell>
                 <TableCell align="right"> {isOpenProductionDialog ? <div><Button onClick={() => incrementQuantity(row.uuid, row.product_unit)}>+</Button><TextField id="outlined-basic"  variant="standard" value={row.quantity} /><Button onClick={() => decrementQuantity(row.uuid, row.product_unit)}>-</Button></div>: <div> {row.quantity}</div>} </TableCell>
                 <TableCell align="right">{row.product_unit}</TableCell>

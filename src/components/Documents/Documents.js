@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getDocuments, getDocumentItems, getDocumentsByType } from "../../services/documentsService";
+import { getDocuments, getDocumentItems, getDocumentsByType, uploadDocument, uploadDocumentItems } from "../../services/documentsService";
 import Paper from '@mui/material/Paper';
 import Stack from '@mui/material/Stack';
 import { DocumentsTable } from "./DocumentsTable";
@@ -8,6 +8,7 @@ import { DocumentDialog } from "./DocumentDialog";
 import { DocumentButtons } from "./DocumentsButtons";
 import { getDocumentTypes } from "../../services/documentsService";
 import { getStores } from "../../services/storesService";
+import { DocumentItemTable } from "./DocumentItemTable";
 
 export const Item = styled(Paper)(({ theme }) => ({
     backgroundImage: null,
@@ -26,10 +27,15 @@ function Documents() {
     const [tableTitle, setTableTitle] = useState('Dokumenty');
     const [isOpenProductionDialog, setOpenProductionDialog] = useState(false);
     const [stores, setStores] = useState();
+    const [selectedStore, setSelectedStore] = useState();
 
     const fetchStores = async () => {
         const response = await getStores();
         setStores(response.data);
+    };
+
+    const handleStoreChange = async () => {
+
     };
 
     function incrementQuantity(uuid, unit) {
@@ -60,8 +66,20 @@ function Documents() {
         setDocumentItems(newItems);
     };
 
-    const handleSaveButton = async () => {
-        console.log('Zapisano')
+    const handleSaveButton = async (uuid) => {
+        // TO REFACTOR
+        const newDocument = {};
+        newDocument['value_gross'] = 0;
+        newDocument['value_net'] = 0;
+        newDocument['type'] = 'production';
+        newDocument['source_store'] = documentsData['source_store'];
+        const response = await uploadDocument(newDocument);
+        const documentUUID = response.data['uuid'];
+        const newDocumentItems = documentItems.map((value) => ({...value, document: documentUUID}));
+        console.log(response.data);
+        const itemsResponse = await uploadDocumentItems(newDocumentItems);
+        console.log(itemsResponse);
+        console.log('Zapisano');
     };
 
     const handleProductionClick = async () => {
@@ -122,7 +140,6 @@ function Documents() {
         fetchDocumentTypes();
     }, []);
 
-
     return (
         <div>
         <Stack spacing={2}>
@@ -150,6 +167,8 @@ function Documents() {
             incrementQuantity={incrementQuantity}
             decrementQuantity={decrementQuantity}
             stores={stores}
+            selectedStore={selectedStore}
+            setSelectedStore={setSelectedStore}
         />
     </div>
     );

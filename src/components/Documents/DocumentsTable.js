@@ -16,10 +16,10 @@ export function DocumentsTable({
                         {title: "Numer Optima", field: "optima_full_number"},
                         {title: "Wartość Netto", field: "value_net"},
                         {title: "Wartość Brutto", field: "value_gross"},
-                        {title: "Magazyn źródłowy", field: "source_store"},
-                        {title: "Magazyn docelowy", field: "destination_store"},
-                        {title: "Grupa dokumentu", field: "document_group"},
-                        {title: "Typ dokumentu", field: "document_type"},
+                        {title: "Magazyn źródłowy", field: "source_store_name"},
+                        {title: "Magazyn docelowy", field: "destination_store_name"},
+                        {title: "Grupa dokumentu", field: "document_group_name"},
+                        {title: "Typ dokumentu", field: "document_type_name"},
                         {title: "Wyeksportowane", field: "exported", type: "boolean", lookup: {true: true, false: false}},
                     ]}
                     options={{
