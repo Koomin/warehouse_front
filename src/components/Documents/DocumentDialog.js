@@ -81,10 +81,9 @@ export const DocumentDialog = ({ open, handleClose, documentsData, documentItems
                         <Autocomplete 
                             value={selectedStore}
                             onChange={(event, newValue) => {
-                                console.log(newValue);
                                 setSelectedStore(newValue)
                             }}
-                            options={stores.map((row) => ({id: row.id, label: row.short_name}))}
+                            options={stores.map((row) => ({uuid: row.uuid, label: row.short_name}))}
                             id="controllable-states-demo"
                             renderInput={(params) => <TextField {...params} variant="outlined" label="Magazyn docelowy" />}
                             />

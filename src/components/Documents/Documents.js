@@ -32,29 +32,29 @@ function Documents() {
         setStores(response.data);
     };
 
-    function incrementQuantity(id, unit) {
-        let item = documentItemsTable[id];
+    function incrementQuantity(uuid, unit) {
+        let item = documentItemsTable[uuid];
         if(unit === 'kg'){
             item['quantity'] = String((parseFloat(item['quantity']) * 10  + 1)/10);
         }
         else {
             item['quantity'] = String(parseFloat(item['quantity']) + 1);
         }
-        documentItemsTable[id] = item;
+        documentItemsTable[uuid] = item;
         setDocumentItems([]);
         let newItems = Object.keys(documentItemsTable).map((key, value) => documentItemsTable[key]);
         setDocumentItems(newItems);
     };
 
-    function decrementQuantity(id, unit) {
-        let item = documentItemsTable[id];
+    function decrementQuantity(uuid, unit) {
+        let item = documentItemsTable[uuid];
         if(unit === 'kg'){
             item['quantity'] = String((parseFloat(item['quantity']) * 10  - 1)/10);
         }
         else {
             item['quantity'] = String(parseFloat(item['quantity']) - 1);
         }
-        documentItemsTable[id] = item;
+        documentItemsTable[uuid] = item;
         setDocumentItems([]);
         let newItems = Object.keys(documentItemsTable).map((key, value) => documentItemsTable[key]);
         setDocumentItems(newItems);
@@ -69,11 +69,11 @@ function Documents() {
         setOpenProductionDialog(true);
     };
 
-    const fetchDocumentItems = async (id) => {
-        const response = await getDocumentItems(id);
+    const fetchDocumentItems = async (uuid) => {
+        const response = await getDocumentItems(uuid);
         const documentItems = response.data;
         setDocumentItems(documentItems);
-        documentItems.forEach((row) => {setDocumentItemsTable(state => ({ ...state, [row.id]: row}))});
+        documentItems.forEach((row) => {setDocumentItemsTable(state => ({ ...state, [row.uuid]: row}))});
     };
 
     const fetchDocuments = async (type=null) => {
@@ -90,7 +90,7 @@ function Documents() {
 
     const handleClickOpen = async (event, data) => {
         await setDocumentsData(data);
-        await fetchDocumentItems(data.id);
+        await fetchDocumentItems(data.uuid);
         setOpenDocumentDialog(true);
     };
 

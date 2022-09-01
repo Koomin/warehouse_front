@@ -22,13 +22,13 @@ export function DocumentItemTable ({documentItems, isOpenProductionDialog, incre
             <TableBody>
             {documentItems.map((row) => (
                 <TableRow
-                key={row.id}
+                key={row.uuid}
                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                 >
                 <TableCell component="th" scope="row">
                     {row.product}
                 </TableCell>
-                <TableCell align="right"> {isOpenProductionDialog ? <div><Button onClick={() => incrementQuantity(row.id, row.product_unit)}>+</Button><TextField id="outlined-basic"  variant="standard" value={row.quantity} /><Button onClick={() => decrementQuantity(row.id, row.product_unit)}>-</Button></div>: <div> {row.quantity}</div>} </TableCell>
+                <TableCell align="right"> {isOpenProductionDialog ? <div><Button onClick={() => incrementQuantity(row.uuid, row.product_unit)}>+</Button><TextField id="outlined-basic"  variant="standard" value={row.quantity} /><Button onClick={() => decrementQuantity(row.uuid, row.product_unit)}>-</Button></div>: <div> {row.quantity}</div>} </TableCell>
                 <TableCell align="right">{row.product_unit}</TableCell>
                 { !isOpenProductionDialog ? <TableCell align="right">{row.product_value}</TableCell> : ''}
                 { !isOpenProductionDialog ? <TableCell align="right">{row.net_price}</TableCell> : ''}

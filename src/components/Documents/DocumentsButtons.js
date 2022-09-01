@@ -21,7 +21,7 @@ export function DocumentButtons({handleButtonClick, documentTypes}) {
             </Grid>
             {documentTypes.map((type) => (
                 <Grid item xs={2}>
-                    <Button fullWidth size='large' variant="outlined" onClick={() => handleButtonClick({typeId: type.id, typeName: type.short_name })}> {typesNames[type.short_name]}</Button>
+                    <Button fullWidth size='large' variant="outlined" onClick={() => handleButtonClick({typeId: type.uuid, typeName: type.short_name })}> {typesNames[type.short_name]}</Button>
                 </Grid>
             ))}
         </Grid>
