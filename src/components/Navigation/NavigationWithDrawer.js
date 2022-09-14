@@ -118,6 +118,11 @@ export default function NavIgationWithDrawer(props) {
 			link: '/documents',
 			icon: <IoIcons.IoIosDocument />
 		},	
+		'Orders': {
+			label: 'Zamowienia',
+			link: '/orders',
+			icon: <IoIcons.IoIosDocument />
+		},	
 	}
 
 	const goTo = (link) => {

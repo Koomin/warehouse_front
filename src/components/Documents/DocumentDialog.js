@@ -45,7 +45,7 @@ export const DocumentDialog = ({ open, handleClose, documentsData, documentItems
                 {documentsData.exported ? 'Dokument ' + documentsData.optima_full_number : 'Dokument niewysłany'}
             </Typography>
 
-            {!isOpenProductionDialog ? (
+            {!isOpenProductionDialog && (documentsData.document_type_name === 'CUK' || documentsData.document_type_name === 'PIEK') ? (
                 <Button autoFocus color="inherit" onClick={handleProductionClick}>
                     Produkcja
                 </Button>) : ""

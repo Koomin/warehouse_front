@@ -1,13 +1,14 @@
 import React from "react";
 import MaterialTable from "material-table";
-import { Item } from "./Documents";
+import { Item } from "./Orders";
 
-export function DocumentsTable({
-    handleChangePage,
-    handleChangeRowsPerPage,
-    handleClickOpen,
-    documents,
-    tableTitle}) {
+export function OrdersTable({
+    // handleChangePage,
+    // handleChangeRowsPerPage,
+    // handleClickOpen,
+    orders,
+    tableTitle
+}) {
         return (
             <div>        
                 <Item elevation={0}>
@@ -26,12 +27,11 @@ export function DocumentsTable({
                     options={{
                         pageSize: 10,
                         pageSizeOptions: [ 10 ]
-                        
                     }}
-                    onRowClick={handleClickOpen}
-                    onChangePage={handleChangePage}
-                    onChangeRowsPerPage={handleChangeRowsPerPage}
-                    data={documents}
+                    // onRowClick={handleClickOpen}
+                    // onChangePage={handleChangePage}
+                    // onChangeRowsPerPage={handleChangeRowsPerPage}
+                    data={orders}
                     title={tableTitle}
                     />
                 </Item>

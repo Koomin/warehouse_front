@@ -5,6 +5,7 @@ import { BrowserRouter as Route, Switch } from "react-router-dom";
 import Home from '../Home/Home';
 import Products from '../Products/Products';
 import Documents from '../Documents/Documents';
+import Orders from '../Orders/Orders';
 import { getModelPermissions,getFirstName, getLastName, logout } from '../../services/authenticationService';
 import { RoutePerms } from './RoutePerms';
 
@@ -18,6 +19,9 @@ export const Routes = () => (
 		</RoutePerms> 
         <RoutePerms exact path='/products'>
             <Products />
+        </RoutePerms>
+		<RoutePerms exact path='/orders'>
+            <Orders />
         </RoutePerms>
 	</Switch>
 );

@@ -6,6 +6,11 @@ export const getDocuments = async () => {
     return response;
 }
 
+export const getOrders = async () => {
+    const response = axios.get(`${API.ORDERS}`);
+    return response;
+}
+
 export const getDocumentItems = async (id) => {
     const response = axios.get(`${API.DOCUMENT_ITEM}${id}/document/`);
     return response

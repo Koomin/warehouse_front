@@ -67,19 +67,15 @@ function Documents() {
     };
 
     const handleSaveButton = async (uuid) => {
-        // TO REFACTOR
+
         const newDocument = {};
-        newDocument['value_gross'] = 0;
-        newDocument['value_net'] = 0;
-        newDocument['type'] = 'production';
         newDocument['source_store'] = documentsData['source_store'];
+        newDocument['destination_store'] = selectedStore.uuid
+        newDocument['document_type'] = documentTypes.find(x => x.short_name === 'PW').uuid;
         const response = await uploadDocument(newDocument);
         const documentUUID = response.data['uuid'];
         const newDocumentItems = documentItems.map((value) => ({...value, document: documentUUID}));
-        console.log(response.data);
         const itemsResponse = await uploadDocumentItems(newDocumentItems);
-        console.log(itemsResponse);
-        console.log('Zapisano');
     };
 
     const handleProductionClick = async () => {
@@ -103,6 +99,7 @@ function Documents() {
             response = await getDocumentsByType(type);
         }
         const documents = response.data;
+
         setDocuments(documents);
     };
 
