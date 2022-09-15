@@ -6,6 +6,7 @@ import { getDocumentTypes, getDocumentsByType } from "../../services/documentsSe
 import {getOrders} from '../../services/documentsService';
 import { OrdersTable } from "./OrdersTable";
 import {OrdersButtons} from "./OrdersButtons";
+import { format } from 'date-fns';
 
 export const Item = styled(Paper)(({ theme }) => ({
     backgroundImage: null,
@@ -15,8 +16,10 @@ export const Item = styled(Paper)(({ theme }) => ({
 
 function Orders() {
     const [orders, setOrders] = useState([]);
+    const [ordersData, setOrdersData] = useState();
     const [documentTypes, setDocumentTypes] = useState([]);
     const [tableTitle, setTableTitle] = useState('Zamówienia');
+    const [documentDate, setDocumentDate] = useState(null);
 
     const fetchDocumentTypes = async () => {
         const response = await getDocumentTypes();
@@ -32,13 +35,20 @@ function Orders() {
         else {
             response = await getDocumentsByType(type);
         }
-        setOrders(response.data);
+        await setOrders(response.data);
+        await setOrdersData(response.data);
     };
 
     const handleButtonClick = async (data) => {
         const title = data.typeId !== 0 ? "Zamówienia " + data.typeName : "Zamówienia"
         setTableTitle(title);
         await fetchOrders(data.typeId);
+        setDocumentDate(null);
+    };
+
+    const handleChangeDate = async(date) => {
+        await setDocumentDate(date);
+        await setOrdersData(orders.filter((row) => row.document_date.includes(format(new Date(date), 'dd-MM-yyyy'))));
     };
 
     useEffect(() => {
@@ -52,9 +62,12 @@ function Orders() {
         <OrdersButtons 
             handleButtonClick={handleButtonClick} 
             documentTypes={documentTypes}
+            documentDate={documentDate}
+            handleChangeDate={handleChangeDate}
+            setDocumentDate={setDocumentDate}
         />
         <OrdersTable 
-            orders={orders}   
+            orders={ordersData}
             // isOpenDocumentDialog={isOpenDocumentDialog}
             // fetchDocuments={fetchDocuments}
             // setOpenDocumentDialog={setOpenDocumentDialog}
