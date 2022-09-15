@@ -5,7 +5,7 @@ import { Item } from "./Orders";
 export function OrdersTable({
     // handleChangePage,
     // handleChangeRowsPerPage,
-    // handleClickOpen,
+    handleClickOpen,
     orders,
     tableTitle
 }) {
@@ -28,7 +28,7 @@ export function OrdersTable({
                         pageSize: 10,
                         pageSizeOptions: [ 10 ]
                     }}
-                    // onRowClick={handleClickOpen}
+                    onRowClick={handleClickOpen}
                     // onChangePage={handleChangePage}
                     // onChangeRowsPerPage={handleChangeRowsPerPage}
                     data={orders}
