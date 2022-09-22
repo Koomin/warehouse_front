@@ -26,6 +26,12 @@ export const getDocumentsByType =  async (id) => {
     return response
 }
 
+export const getOrdersByType =  async (id) => {
+    const response = axios.get(`${API.ORDERS}${id}/type/`);
+    return response
+}
+
+
 export const uploadDocument = async (details) => {
     const response = axios.post(`${API.DOCUMENTS}`, details);
     return response
@@ -33,5 +39,10 @@ export const uploadDocument = async (details) => {
 
 export const uploadDocumentItems = async (details) => {
     const response = axios.post(`${API.DOCUMENT_ITEM}`, details);
+    return response
+}
+
+export const updateDocument = async (id, details) => {
+    const response = axios.put(`${API.DOCUMENTS}${id}/`, details);
     return response
 }

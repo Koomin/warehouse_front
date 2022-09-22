@@ -10,6 +10,7 @@ export const API = {
     AUTH: `${PREFIX}/token/`,
     REFRESH: `${PREFIX}/token/refresh/`,
     PRODUCTS: `${PREFIX}/products/`,
+    PRODUCTS_AVAILABILITY: `${PREFIX}/products-availability/`,
     DOCUMENTS: `${PREFIX}/documents/`,
     DOCUMENT_ITEM: `${PREFIX}/document-item/`,
     DOCUMENT_TYPES: `${PREFIX}/document-types/`,

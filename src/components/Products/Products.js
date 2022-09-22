@@ -1,12 +1,12 @@
 import MaterialTable from "material-table";
 import React, { useEffect, useState } from "react";
-import { getProducts } from "../../services/productService";
+import {getProducts, getProductsAvailability} from "../../services/productService";
 
 function Products() {
     const [products, setProducts] = useState([]);
 
     const fetchProducts = async () => {
-        const response = await getProducts();
+        const response = await getProductsAvailability();
         const products = response.data;
         setProducts(products);
     };
@@ -17,14 +17,19 @@ function Products() {
     return (
             <MaterialTable 
             columns = {[
-                {title: "Nazwa", field: "name"},
-                {title: "Kod", field: "code"},
-                {title: "PKWiU", field: "pkwiu"},
-                {title: "Optima ID", field: "optima_id"},
-                {title: "Kategoria", field: "category"},
-                {title: "Jednostka", field: "unit_name"},
-                {title: "Wartość", field: "value"},
-                {title: "Wartość odsprzedazy", field: "retail_value"},
+                // {title: "Nazwa", field: "name"},
+                // {title: "Kod", field: "code"},
+                // {title: "PKWiU", field: "pkwiu"},
+                // {title: "Optima ID", field: "optima_id"},
+                // {title: "Kategoria", field: "category"},
+                // {title: "Jednostka", field: "unit_name"},
+                // {title: "Wartość", field: "value"},
+                // {title: "Wartość odsprzedazy", field: "retail_value"},
+                {title: 'Nazwa', field: 'product_name'},
+                {title: 'Magazyn', field: 'store_short_name'},
+                {title: 'Ilość', field: 'quantity'},
+                {title: 'Jednostka', field: 'unit'},
+                {title: 'Wartość', field: 'value'},
             ]}
             options={{
                 pageSize: 10,
