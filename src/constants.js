@@ -15,5 +15,5 @@ export const API = {
     DOCUMENT_ITEM: `${PREFIX}/document-item/`,
     DOCUMENT_TYPES: `${PREFIX}/document-types/`,
     ORDERS: `${PREFIX}/orders/`,
-    STORES: `${PREFIX}/store/`,
+    STORES: `${PREFIX}/stores/`,
 }
