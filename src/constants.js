@@ -3,7 +3,7 @@ const PREFIXES = {
     LOCAL: "http://127.0.0.1:8000",
   };
   
-  const PREFIX = PREFIXES.LOCAL + '/api';
+  const PREFIX = PREFIXES.LOCAL + '/api/v1';
   
 
 export const API = {
