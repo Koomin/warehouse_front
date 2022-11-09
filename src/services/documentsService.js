@@ -31,6 +31,15 @@ export const getOrdersByType =  async (id) => {
     return response
 }
 
+export const getOrderItems = async () => {
+    const response = axios.get(`${API.ORDER_ITEM}`);
+    return response
+}
+
+export const getOrderItemsByStore = async (id) => {
+    const response = axios.get(`${API.ORDER_ITEM}${id}/store/`);
+    return response
+}
 
 export const uploadDocument = async (details) => {
     const response = axios.post(`${API.DOCUMENTS}`, details);

@@ -71,7 +71,7 @@ const useStyles = makeStyles((theme) => ({
 	navIcon: {
 		color: 'white',
 		height: '80px',
-		borderRadius: '5px', 
+		borderRadius: '0px',
 		transition: 'padding 0.5s',
 		marginBottom: '2px',
 		'&:hover': {
