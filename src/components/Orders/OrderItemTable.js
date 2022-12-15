@@ -4,10 +4,23 @@ import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow'
-import { TextField } from "@mui/material";
+import {MenuItem, Select, TextField} from "@mui/material";
 import { Button } from '@material-ui/core';
-export function OrderItemTable ({orderItems, incrementQuantity, decrementQuantity}) {
+export function OrderItemTable ({orderItems, incrementQuantity, decrementQuantity, editable}) {
     return (
+        <>
+        <div>
+        <Select
+            labelId="demo-simple-select-label"
+            id="demo-simple-select"
+            label="Age"
+        >
+            <MenuItem value={10}>Ten</MenuItem>
+            <MenuItem value={20}>Twenty</MenuItem>
+            <MenuItem value={30}>Thirty</MenuItem>
+        </Select>
+            </div>
+        <div>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
             <TableHead >
             <TableRow >
@@ -25,12 +38,14 @@ export function OrderItemTable ({orderItems, incrementQuantity, decrementQuantit
                 <TableCell component="th" scope="row">
                     {row.product_name}
                 </TableCell>
-                <TableCell align="right"><div><Button onClick={() => incrementQuantity(row.uuid, row.product_unit)}>+</Button><TextField id="outlined-basic"  variant="standard" value={row.quantity} /><Button onClick={() => decrementQuantity(row.uuid, row.product_unit)}>-</Button></div></TableCell>
+                <TableCell align="right">{editable ? <div><Button onClick={() => incrementQuantity(row.uuid, row.product_unit)}>+</Button><TextField id="outlined-basic"  variant="standard" value={row.quantity} /><Button onClick={() => decrementQuantity(row.uuid, row.product_unit)}>-</Button></div> : row.quantity}</TableCell>
                 <TableCell align="right">{row.product_unit}</TableCell>
                 </TableRow>
             ))}
             </TableBody>
         </Table>
+            </div>
+        </>
 
 );
 }

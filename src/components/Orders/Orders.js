@@ -174,6 +174,7 @@ function Orders() {
                     setOpenOrderDialog={setOpenOrderDialog}
                     handleClickOpen={handleClickOpen}
                     tableTitle={tableTitle}
+                    extended={true}
                 />
             </Stack>
             <OrderDialog

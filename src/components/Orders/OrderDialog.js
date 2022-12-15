@@ -97,7 +97,7 @@ export const OrderDialog = ({
                 </Box>
                 <Divider color="grey" fullWidth/>
                 <Box sx={{paddingTop: "20px"}}>
-                    <OrderItemTable orderItems={orderItems} incrementQuantity={incrementQuantity} decrementQuantity={decrementQuantity}/>
+                    <OrderItemTable orderItems={orderItems} incrementQuantity={incrementQuantity} decrementQuantity={decrementQuantity} editable={true}/>
                 </Box>
             </Box>
         </Dialog>
